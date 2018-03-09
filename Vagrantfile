@@ -12,8 +12,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vbguest.auto_update = false
   end
   
-  vb_name  = "My Box Name" # virtualbox machine name
-  provider = "virtualbox" # (virtualbox|docker)
   host_ip = "192.168.56.1"
   ip = "192.168.56.95"
   server_hostname="my-host-name"
@@ -30,18 +28,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # create a private network so the host can access the guest
   config.vm.network "private_network", ip: ip
-
-  if provider == "virtualbox"
-    config.vm.provider "virtualbox" do |vb|
-      vb.name = vb_name
-      vb.customize ["modifyvm", :id, "--cpus", 2]
-      
-      vb.customize ["modifyvm", :id, "--memory", 4000]
-      vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-      vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
-      
-    end
-  end
   
   config.vm.provision "docker"
 docker_config = <<SCRIPT
