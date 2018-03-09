@@ -1,0 +1,1 @@
+Repro case for https://github.com/hashicorp/vagrant/issues/9546
