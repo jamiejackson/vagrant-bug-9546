@@ -31,10 +31,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # create a private network so the host can access the guest
   config.vm.network "private_network", ip: ip
 
-    # Native Provider Shared Folder
-    config.vm.synced_folder "./share2", "/tmp/share2",
-      mount_options: ["dmode=777","fmode=777"]
-
   if provider == "virtualbox"
     config.vm.provider "virtualbox" do |vb|
       vb.name = vb_name
