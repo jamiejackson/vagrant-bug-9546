@@ -12,7 +12,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vbguest.auto_update = false
   end
   
-  host_ip = "192.168.56.1"
   ip = "192.168.56.95"
   server_hostname="my-host-name"
   docker_compose_version = "1.16.1"
@@ -30,17 +29,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "private_network", ip: ip
   
   config.vm.provision "docker"
-docker_config = <<SCRIPT
-  {
-   "insecure-registries": ["http://#{host_ip}:5000"],
-   "debug": true,
-   "registry-mirrors": ["http://#{host_ip}:5000"],
-   "hosts": ["tcp://0.0.0.0:2375", "unix:///var/run/docker.sock"]
-  }
-SCRIPT
-  # use host pull-through caching registry
-  # don't worry if you don't have a local registry, things will still work
-  config.vm.provision "shell", inline: "set -x && echo '#{docker_config}' > /etc/docker/daemon.json && service docker restart"
   config.vm.provision "docker_compose", compose_version: docker_compose_version
 
 
