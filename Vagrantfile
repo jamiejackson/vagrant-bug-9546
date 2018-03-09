@@ -31,7 +31,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "docker"
   config.vm.provision "docker_compose", compose_version: docker_compose_version
 
-
   config.vm.provision  :docker_compose,
     options: "-p docker",
     yml: ["/vagrant/docker-compose.yml"],
